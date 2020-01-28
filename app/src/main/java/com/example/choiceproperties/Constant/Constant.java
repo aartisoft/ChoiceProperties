@@ -12,6 +12,7 @@ public class Constant {
     /************************************** Firebase Storage reference constants ***************************************************************************/
     private static final FirebaseDatabase DATABASE = FirebaseDatabase.getInstance();
     public static final DatabaseReference USER_TABLE_REF = DATABASE.getReference("user");
+    public static final DatabaseReference ADMIN_TABLE_REF = DATABASE.getReference("Admin");
     public static final DatabaseReference LEEDS_TABLE_REF = DATABASE.getReference("leeds");
     public static final DatabaseReference REQUESTS_TABLE_REF = DATABASE.getReference("Request");
     public static final DatabaseReference CUSTOMERS_TABLE_REF = DATABASE.getReference("Customers");

@@ -188,7 +188,7 @@ public class Registeractivity extends AppCompatActivity implements
 
     private void createUser(final User user) {
         progressDialogClass.showDialog(getMessage(R.string.loading), getMessage(R.string.PLEASE_WAIT));
-        userRepository.createUserData(user, new CallBack() {
+        userRepository.createAdminData(user, new CallBack() {
             @Override
             public void onSuccess(Object object) {
                 addUserDataToPreferences(user);

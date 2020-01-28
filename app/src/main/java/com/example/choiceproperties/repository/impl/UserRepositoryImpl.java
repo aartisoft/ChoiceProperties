@@ -248,4 +248,20 @@ public class UserRepositoryImpl extends FirebaseTemplateRepository implements Us
         });
     }
 
+    @Override
+    public void createAdminData(User user, final CallBack callBack) {
+        DatabaseReference databaseReference = Constant.ADMIN_TABLE_REF.child(user.getUserId());
+        fireBaseCreate(databaseReference, user, new CallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                callBack.onSuccess(object);
+            }
+
+            @Override
+            public void onError(Object object) {
+                callBack.onError(object);
+            }
+        });
+    }
+
 }

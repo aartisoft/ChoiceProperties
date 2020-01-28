@@ -24,4 +24,6 @@ public interface UserRepository {
     void readSoldOutPlots(final CallBack callback);
 
     void readVisitedCustomers(final CallBack callback);
+
+    void createAdminData(final User userModel, final CallBack callback);
 }

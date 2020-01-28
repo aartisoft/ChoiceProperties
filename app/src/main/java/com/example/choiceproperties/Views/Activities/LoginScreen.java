@@ -34,7 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LoginScreen extends AppCompatActivity {
     TextView txtregister;
-    Button login, Register;
+    Button login;
     EditText etMobileNumber, etpassword;
     private AppSharedPreference appSharedPreference;
     private UserRepository userRepository;
@@ -50,18 +50,18 @@ public class LoginScreen extends AppCompatActivity {
         userRepository = new UserRepositoryImpl(this);
         appSharedPreference = new AppSharedPreference(this);
         checkLoginState();
-        Register = (Button) findViewById(R.id.buttonRegister);
+//        Register = (Button) findViewById(R.id.buttonRegister);
         login = (Button) findViewById(R.id.buttonlogin);
         etMobileNumber = (EditText) findViewById(R.id.edittext_mobile_number);
         etpassword = (EditText) findViewById(R.id.edittextpassword);
-        Register.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(LoginScreen.this, Registeractivity.class);
-                startActivity(i);
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-//                overridePendingTransition(R.anim.backslide_in, R.anim.backslide_out);
-            }
-        });
+//        Register.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Intent i = new Intent(LoginScreen.this, Registeractivity.class);
+//                startActivity(i);
+//                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+////                overridePendingTransition(R.anim.backslide_in, R.anim.backslide_out);
+//            }
+//        });
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 //                login();
@@ -105,7 +105,7 @@ public class LoginScreen extends AppCompatActivity {
         final String phoneNumber = number;
 
 
-        DatabaseReference Dref = FirebaseDatabase.getInstance().getReference("user");
+        DatabaseReference Dref = FirebaseDatabase.getInstance().getReference("Admin");
         Dref.orderByChild("mobileNumber").equalTo(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
