@@ -50,7 +50,7 @@ public class Sales_Customer_Verified_Requests_Fragment extends Fragment implemen
         // NOTE : We are calling the onFragmentInteraction() declared in the MainActivity
         // ie we are sending "Fragment 1" as title parameter when fragment1 is activated
         if (mListener != null) {
-            mListener.onFragmentInteraction("Paid");
+            mListener.onFragmentInteraction("Verified");
 
             leedRepository = new LeedRepositoryImpl();
             progressDialogClass = new ProgressDialogClass(getActivity());

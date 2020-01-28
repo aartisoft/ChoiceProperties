@@ -54,7 +54,7 @@ public class Sales_Visited_Customer_Requests_Fragment extends Fragment implement
         // NOTE : We are calling the onFragmentInteraction() declared in the MainActivity
         // ie we are sending "Fragment 1" as title parameter when fragment1 is activated
         if (mListener != null) {
-            mListener.onFragmentInteraction("Paid");
+            mListener.onFragmentInteraction("Visited");
 
             leedRepository = new LeedRepositoryImpl();
             userRepository = new UserRepositoryImpl();

@@ -49,7 +49,7 @@ public class Sales_Customer_Requests_Fragment extends Fragment implements Adapte
         // NOTE : We are calling the onFragmentInteraction() declared in the MainActivity
         // ie we are sending "Fragment 1" as title parameter when fragment1 is activated
         if (mListener != null) {
-            mListener.onFragmentInteraction("Paid");
+            mListener.onFragmentInteraction("Requests");
 
             leedRepository = new LeedRepositoryImpl();
             progressDialogClass = new ProgressDialogClass(getActivity());
