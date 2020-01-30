@@ -5,6 +5,7 @@ import com.google.firebase.database.Exclude;
 import com.google.firebase.database.ServerValue;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ public class Plots implements Serializable {
     private String depositType;
     private String remainingAmount;
     private String installment;
+    ArrayList<String> installments;
     private String installmentType;
     private String payedAmount;
     private String agentName;
@@ -158,6 +160,14 @@ public class Plots implements Serializable {
         this.depositType = depositType;
     }
 
+    public ArrayList<String> getInstallments() {
+        return installments;
+    }
+
+    public void setInstallments(ArrayList<String> installments) {
+        this.installments = installments;
+    }
+
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
@@ -176,6 +186,7 @@ public class Plots implements Serializable {
         result.put("payedAmount", payedAmount);
         result.put("agentName", agentName);
         result.put("comissionStatus", comissionStatus);
+        result.put("twodays",getInstallments() );
 
         result.put("createdDateTime", getCreatedDateTime());
 
