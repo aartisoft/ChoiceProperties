@@ -27,14 +27,13 @@ public class Installments_Adapter extends RecyclerView.Adapter<Installments_Adap
 
     private static ArrayList<String> searchArrayList;
     private Context context;
-    private boolean isFromRequest;
+
     ProgressDialogClass progressDialogClass;
     LeedRepository leedRepository;
 
     public Installments_Adapter(Context context, ArrayList<String> userArrayList) {
         this.context = context;
         this.searchArrayList = userArrayList;
-        this.isFromRequest = isFromRequest;
     }
 
 
