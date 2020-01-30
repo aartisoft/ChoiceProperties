@@ -27,7 +27,10 @@ import com.example.choiceproperties.repository.UserRepository;
 import com.example.choiceproperties.repository.impl.LeedRepositoryImpl;
 import com.example.choiceproperties.utilities.Utility;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 public class Update_Sold_Out_Plots_Activity extends AppCompatActivity implements View.OnClickListener {
@@ -39,13 +42,14 @@ public class Update_Sold_Out_Plots_Activity extends AppCompatActivity implements
     RadioButton Rinstallment, Rcomission, radioCash, radioBank, radioPaid, radioUnpaid;
     Button btnAdd;
     String Sinstallment, Scomission;
-    TextView txtPAmount, txtRamount,txtTamount;
+    TextView txtPAmount, txtRamount, txtTamount;
 
     ProgressDialogClass progressDialogClass;
     UserRepository userRepository;
     LeedRepository leedRepository;
     ArrayList<Plots> plotsArrayList;
     int previousRemainingAmount, previousPayedAmount;
+    ArrayList<String> Installments;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -68,6 +72,11 @@ public class Update_Sold_Out_Plots_Activity extends AppCompatActivity implements
 
         previousPayedAmount = Integer.parseInt(plots.getPayedAmount());
         previousRemainingAmount = Integer.parseInt(plots.getRemainingAmount());
+
+        Installments = new ArrayList<>();
+        if (plots.getInstallments() != null) {
+            Installments.addAll(plots.getInstallments());
+        }
 
         inputPlotNumber = (EditText) findViewById(R.id.plot_number);
         inputCustomerName = (EditText) findViewById(R.id.customer_name);
@@ -192,6 +201,10 @@ public class Update_Sold_Out_Plots_Activity extends AppCompatActivity implements
 
         int afterpayed = previousPayedAmount + Integer.parseInt(inputInstallment.getText().toString());
         int afterremained = previousRemainingAmount - Integer.parseInt(inputInstallment.getText().toString());
+        SimpleDateFormat sdf = new SimpleDateFormat(Constant.GLOBAL_DATE_FORMATE, Locale.getDefault());
+        String currentDateandTime = sdf.format(new Date());
+        String installment = inputInstallment.getText().toString() +" " + currentDateandTime;
+        Installments.add(installment);
 
         plots.setPlotnumber(inputPlotNumber.getText().toString());
         plots.setCustomerNmae(inputCustomerName.getText().toString());
@@ -199,6 +212,7 @@ public class Update_Sold_Out_Plots_Activity extends AppCompatActivity implements
         plots.setDepositAmount(plots.getDepositAmount());
         plots.setRemainingAmount(String.valueOf(afterremained));
         plots.setInstallment(inputInstallment.getText().toString());
+        plots.setInstallments(Installments);
         plots.setInstallmentType(Sinstallment);
         plots.setPayedAmount(String.valueOf(afterpayed));
         plots.setAgentName(inputAgentName.getText().toString());

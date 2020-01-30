@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.choiceproperties.Constant.Constant;
@@ -34,6 +35,8 @@ public class Reports_Adapter extends RecyclerView.Adapter<Reports_Adapter.ViewHo
     private boolean isFromRequest;
     ProgressDialogClass progressDialogClass;
     LeedRepository leedRepository;
+    Installments_Adapter adapter;
+    ArrayList<String> install;
 
     public Reports_Adapter(Context context, List<Plots> userArrayList) {
         this.context = context;
@@ -55,6 +58,7 @@ public class Reports_Adapter extends RecyclerView.Adapter<Reports_Adapter.ViewHo
     @Override
     public void onBindViewHolder(final Reports_Adapter.ViewHolder holder, final int position) {
         final Plots plots = searchArrayList.get(position);
+        install = new ArrayList<>();
 
         if (plots.getPlotnumber() != null) {
             holder.txtCustomerName.setText(": " + searchArrayList.get(position).getPlotnumber());
@@ -78,6 +82,7 @@ public class Reports_Adapter extends RecyclerView.Adapter<Reports_Adapter.ViewHo
         }
 
 
+
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +90,7 @@ public class Reports_Adapter extends RecyclerView.Adapter<Reports_Adapter.ViewHo
                 dialog.setContentView(R.layout.dialogeditnotice);
 
                 Button btnYes = (Button) dialog.findViewById(R.id.dialogButtoncancle);
+                RecyclerView recycleInstallment = (RecyclerView) dialog.findViewById(R.id.recycle_installments);
 
                 TextView txtCustomerName = (TextView) dialog.findViewById(R.id.txt_customer_name_value);
                 TextView txtTotalAmount = (TextView) dialog.findViewById(R.id.txt_total_amount_value);
@@ -94,14 +100,24 @@ public class Reports_Adapter extends RecyclerView.Adapter<Reports_Adapter.ViewHo
                 TextView txtAgentName = (TextView) dialog.findViewById(R.id.txt_agent_name_value);
                 TextView txtPlotNumber = (TextView) dialog.findViewById(R.id.txt_plot_number_value);
 
-                txtPlotNumber.setText(": "+ plots.getPlotnumber());
-                txtCustomerName.setText(": "+ plots.getCustomerNmae());
-                txtTotalAmount.setText(": "+ plots.getPlotPrice());
-                txtPaidAmount.setText(": "+ plots.getPayedAmount());
-                txtPendingAmount.setText(": "+ plots.getRemainingAmount());
-                txtAgentName.setText(": "+ plots.getAgentName());
-                txtSoldDate.setText(": "+ Utility.convertMilliSecondsToFormatedDate(searchArrayList.get(position).getCreatedDateTimeLong(), GLOBAL_DATE_FORMATE));
+                txtPlotNumber.setText(": " + plots.getPlotnumber());
+                txtCustomerName.setText(": " + plots.getCustomerNmae());
+                txtTotalAmount.setText(": " + plots.getPlotPrice());
+                txtPaidAmount.setText(": " + plots.getPayedAmount());
+                txtPendingAmount.setText(": " + plots.getRemainingAmount());
+                txtAgentName.setText(": " + plots.getAgentName());
+                txtSoldDate.setText(": " + Utility.convertMilliSecondsToFormatedDate(searchArrayList.get(position).getCreatedDateTimeLong(), GLOBAL_DATE_FORMATE));
 
+                if (plots.getInstallments() != null) {
+//            holder.txtStatus.setText(": " + searchArrayList.get(position).getAgentName());
+                    install = plots.getInstallments();
+                    adapter = new Installments_Adapter(holder.card_view.getContext(), install);
+                    //adding adapter to recyclerview
+                    recycleInstallment.setAdapter(adapter);
+                    recycleInstallment.setHasFixedSize(true);
+                    recycleInstallment.setLayoutManager(new LinearLayoutManager(holder.card_view.getContext()));
+                    adapter.notifyDataSetChanged();
+                }
 
                 btnYes.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -126,6 +142,7 @@ public class Reports_Adapter extends RecyclerView.Adapter<Reports_Adapter.ViewHo
         TextView txtCustomerName, txtAddress, txtNumber, txtStatus;
         CardView card_view;
         LinearLayout layout;
+//        RecyclerView recycleInstallments;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -136,6 +153,7 @@ public class Reports_Adapter extends RecyclerView.Adapter<Reports_Adapter.ViewHo
             txtNumber = (TextView) itemView.findViewById(R.id.txt_number_value);
             txtStatus = (TextView) itemView.findViewById(R.id.txt_status_value);
             card_view = (CardView) itemView.findViewById(R.id.card_view);
+//            recycleInstallments = (RecyclerView) itemView.findViewById(R.id.recycle_installments);
 //            layout = (LinearLayout) itemView.findViewById(R.id.layoutdetails);
 
         }

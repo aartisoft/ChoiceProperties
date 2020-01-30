@@ -227,8 +227,23 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/txt_installments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Installments"
+                android:layout_weight="40"
+                android:textColor="@color/Black"
+                android:textSize="14dp" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle_installments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
+
 
     </LinearLayout>
 

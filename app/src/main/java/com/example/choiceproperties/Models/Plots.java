@@ -175,7 +175,6 @@ public class Plots implements Serializable {
         result.put("plotarea", plotarea);
         result.put("status", status);
         result.put("ploteId", ploteId);
-
         result.put("customerNmae", customerNmae);
         result.put("plotPrice", plotPrice);
         result.put("depositAmount", depositAmount);
@@ -186,7 +185,7 @@ public class Plots implements Serializable {
         result.put("payedAmount", payedAmount);
         result.put("agentName", agentName);
         result.put("comissionStatus", comissionStatus);
-        result.put("twodays",getInstallments() );
+        result.put("installments",getInstallments());
 
         result.put("createdDateTime", getCreatedDateTime());
 
