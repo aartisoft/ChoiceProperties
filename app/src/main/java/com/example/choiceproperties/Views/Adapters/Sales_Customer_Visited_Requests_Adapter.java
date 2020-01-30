@@ -66,6 +66,12 @@ public class Sales_Customer_Visited_Requests_Adapter extends RecyclerView.Adapte
         }else {
             holder.txtStatus.setText(": Null");
         }
+        if (request.getAttendedBy() != null) {
+            holder.txtSalesPerson.setText(": " + searchArrayList.get(position).getAttendedBy());
+        }else {
+            holder.txtSalesPerson.setText(": Null");
+        }
+
 
 //        holder.txtbilldate.setText(": "+ Utility.convertMilliSecondsToFormatedDate(searchArrayList.get(position).getCreatedDateTimeLong(), GLOBAL_DATE_FORMATE));
 
@@ -79,7 +85,7 @@ public class Sales_Customer_Visited_Requests_Adapter extends RecyclerView.Adapte
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtCustomerName, txtAddress, txtNumber, txtStatus;
+        TextView txtCustomerName, txtAddress, txtNumber, txtStatus,txtSalesPerson;
         CardView card_view;
         LinearLayout layout;
 
@@ -92,6 +98,7 @@ public class Sales_Customer_Visited_Requests_Adapter extends RecyclerView.Adapte
             txtNumber = (TextView) itemView.findViewById(R.id.txt_number_value);
             txtStatus = (TextView) itemView.findViewById(R.id.txt_status_value);
             card_view = (CardView) itemView.findViewById(R.id.card_view);
+            txtSalesPerson = (TextView) itemView.findViewById(R.id.txt_attended_value);
 //            layout = (LinearLayout) itemView.findViewById(R.id.layoutdetails);
 
         }

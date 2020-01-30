@@ -147,23 +147,23 @@
 
                     </LinearLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content">-->
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/remaining_amount"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/edittextanimation"
-                            android:hint="Remaining Amount"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:padding="10.0dip"
-                            android:singleLine="true"
-                            android:textColor="@color/input_register_bg" />
+<!--                        <com.google.android.material.textfield.TextInputEditText-->
+<!--                            android:id="@+id/remaining_amount"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="@drawable/edittextanimation"-->
+<!--                            android:hint="Remaining Amount"-->
+<!--                            android:inputType="number"-->
+<!--                            android:maxLines="1"-->
+<!--                            android:padding="10.0dip"-->
+<!--                            android:singleLine="true"-->
+<!--                            android:textColor="@color/input_register_bg" />-->
 
-                    </com.google.android.material.textfield.TextInputLayout>
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
 
 <!--                    <com.google.android.material.textfield.TextInputLayout-->
 <!--                        android:layout_width="match_parent"-->

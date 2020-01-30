@@ -42,8 +42,7 @@ import java.util.Date;
 
 public class Fragment_Sale_Plots extends Fragment implements View.OnClickListener {
 
-    EditText  inputCustomerName, inputSalePrice, inputDepositAmount, inputRemainingAmount,
-             inputAgentName;
+    EditText inputCustomerName, inputSalePrice, inputDepositAmount, inputAgentName;
     RadioGroup GroupDeposite, GroupComission;
     RadioButton Rdeposite, Rcomission, radioCash, radioPaid;
     Button btnAdd;
@@ -80,8 +79,6 @@ public class Fragment_Sale_Plots extends Fragment implements View.OnClickListene
         inputCustomerName = (EditText) view.findViewById(R.id.customer_name);
         inputSalePrice = (EditText) view.findViewById(R.id.plot_salling_price);
         inputDepositAmount = (EditText) view.findViewById(R.id.deposit_amount);
-        inputRemainingAmount = (EditText) view.findViewById(R.id.remaining_amount);
-//        inputPaidAmount = (EditText) view.findViewById(R.id.paid);
         inputAgentName = (EditText) view.findViewById(R.id.agent_name);
 
         GroupDeposite = (RadioGroup) view.findViewById(R.id.group_installment_type);
@@ -127,10 +124,10 @@ public class Fragment_Sale_Plots extends Fragment implements View.OnClickListene
         userRepository.readPlots(new CallBack() {
             @Override
             public void onSuccess(Object object) {
-                if (object != null){
+                if (object != null) {
                     plotsArrayList = (ArrayList<Plots>) object;
 
-                    for (Plots plot: plotsArrayList) {
+                    for (Plots plot : plotsArrayList) {
                         plotsNumbersList.add(plot.getPlotnumber());
                     }
 
@@ -160,7 +157,7 @@ public class Fragment_Sale_Plots extends Fragment implements View.OnClickListene
                 userRepository.readPlotsByPlotNumber(plotnumber, new CallBack() {
                     @Override
                     public void onSuccess(Object object) {
-                        if (object != null){
+                        if (object != null) {
                             Plots plots1 = (Plots) object;
                             String plotId = plots1.getPloteId();
 
@@ -193,8 +190,6 @@ public class Fragment_Sale_Plots extends Fragment implements View.OnClickListene
                 inputCustomerName.setText("");
                 inputSalePrice.setText("");
                 inputDepositAmount.setText("");
-                inputRemainingAmount.setText("");
-//                inputPaidAmount.setText("");
                 inputAgentName.setText("");
                 radioCash.setChecked(true);
                 radioPaid.setChecked(true);
@@ -213,13 +208,17 @@ public class Fragment_Sale_Plots extends Fragment implements View.OnClickListene
 
     private Plots fillUserModel(String area) {
         Plots plots = new Plots();
+
+        int salePrice = Integer.parseInt(inputSalePrice.getText().toString());
+        int depositeAmount = Integer.parseInt(inputDepositAmount.getText().toString());
+        int remaining = salePrice - depositeAmount;
+
         plots.setPlotnumber(spinnerPlotNumber.getSelectedItem().toString());
         plots.setCustomerNmae(inputCustomerName.getText().toString());
         plots.setPlotPrice(inputSalePrice.getText().toString());
         plots.setDepositAmount(inputDepositAmount.getText().toString());
         plots.setDepositType(Sdeposite);
-        plots.setRemainingAmount(inputRemainingAmount.getText().toString());
-//        plots.setInstallmentType(Sinstallment);
+        plots.setRemainingAmount(String.valueOf(remaining));
         plots.setPayedAmount(inputDepositAmount.getText().toString());
         plots.setAgentName(inputAgentName.getText().toString());
         plots.setComissionStatus(Scomission);
