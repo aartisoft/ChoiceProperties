@@ -130,11 +130,14 @@ public class Fragment_Sale_Plots extends Fragment implements View.OnClickListene
                     for (Plots plot : plotsArrayList) {
                         plotsNumbersList.add(plot.getPlotnumber());
                     }
+                    try {
+                        ArrayAdapter<String> plotNumbersAdapter = new ArrayAdapter<String>(getContext(),
+                                android.R.layout.simple_spinner_item, plotsNumbersList);
+                        plotNumbersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerPlotNumber.setAdapter(plotNumbersAdapter);
+                    } catch (Exception e) {
 
-                    ArrayAdapter<String> plotNumbersAdapter = new ArrayAdapter<String>(getContext(),
-                            android.R.layout.simple_spinner_item, plotsNumbersList);
-                    plotNumbersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinnerPlotNumber.setAdapter(plotNumbersAdapter);
+                    }
                 }
             }
 

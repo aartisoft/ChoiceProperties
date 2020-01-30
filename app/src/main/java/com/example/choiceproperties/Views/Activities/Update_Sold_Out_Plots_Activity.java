@@ -33,7 +33,7 @@ import java.util.Map;
 public class Update_Sold_Out_Plots_Activity extends AppCompatActivity implements View.OnClickListener {
 
     Plots plots;
-    EditText inputPlotNumber, inputCustomerName, inputSalePrice, inputDepositAmount, inputInstallment,
+    EditText inputPlotNumber, inputCustomerName, inputSalePrice, inputReceivedAmount, inputInstallment,
             inputAgentName;
     RadioGroup GroupInsatllment, GroupComission;
     RadioButton Rinstallment, Rcomission, radioCash, radioBank, radioPaid, radioUnpaid;
@@ -72,7 +72,7 @@ public class Update_Sold_Out_Plots_Activity extends AppCompatActivity implements
         inputPlotNumber = (EditText) findViewById(R.id.plot_number);
         inputCustomerName = (EditText) findViewById(R.id.customer_name);
         inputSalePrice = (EditText) findViewById(R.id.plot_salling_price);
-        inputDepositAmount = (EditText) findViewById(R.id.deposit_amount);
+        inputReceivedAmount = (EditText) findViewById(R.id.received_amount);
         inputInstallment = (EditText) findViewById(R.id.installment);
         inputAgentName = (EditText) findViewById(R.id.agent_name);
 
@@ -129,7 +129,7 @@ public class Update_Sold_Out_Plots_Activity extends AppCompatActivity implements
         String agentname = plots.getAgentName();
         String ComissionStatus = plots.getComissionStatus();
         String customerName = plots.getCustomerNmae();
-        String depositAmount = plots.getDepositAmount();
+        String received = plots.getPayedAmount();
         String installment = plots.getInstallment();
         String installmentType = plots.getInstallmentType();
         String plotPrice = plots.getPlotPrice();
@@ -161,8 +161,8 @@ public class Update_Sold_Out_Plots_Activity extends AppCompatActivity implements
         if (customerName != null) {
             inputCustomerName.setText(customerName);
         }
-        if (depositAmount != null) {
-            inputDepositAmount.setText(depositAmount);
+        if (received != null) {
+            inputReceivedAmount.setText(received);
         }
         if (installment != null) {
             inputInstallment.setText(installment);
@@ -196,7 +196,7 @@ public class Update_Sold_Out_Plots_Activity extends AppCompatActivity implements
         plots.setPlotnumber(inputPlotNumber.getText().toString());
         plots.setCustomerNmae(inputCustomerName.getText().toString());
         plots.setPlotPrice(inputSalePrice.getText().toString());
-        plots.setDepositAmount(inputDepositAmount.getText().toString());
+        plots.setDepositAmount(plots.getDepositAmount());
         plots.setRemainingAmount(String.valueOf(afterremained));
         plots.setInstallment(inputInstallment.getText().toString());
         plots.setInstallmentType(Sinstallment);

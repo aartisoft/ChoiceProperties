@@ -219,12 +219,12 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/deposit_amount"
+                            android:id="@+id/received_amount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/edittextanimation"
                             android:focusable="false"
-                            android:hint="Deposit Amount"
+                            android:hint="Received Amount"
                             android:inputType="number"
                             android:maxLines="1"
                             android:padding="10.0dip"
