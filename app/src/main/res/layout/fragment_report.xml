@@ -50,11 +50,11 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edittextfromdate"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_marginTop="10sp"
-                        android:layout_weight="50"
+                        android:layout_weight="30"
                         android:background="@drawable/white_border"
                         android:focusable="false"
                         android:gravity="center_horizontal"
@@ -69,11 +69,11 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edittexttodate"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_marginTop="20sp"
-                        android:layout_weight="50"
+                        android:layout_weight="30"
                         android:background="@drawable/white_border"
                         android:focusable="false"
                         android:gravity="center_horizontal"
@@ -84,6 +84,14 @@
                         android:textSize="15sp" >
 
                     </com.google.android.material.textfield.TextInputEditText>
+
+                    <ImageView
+                        android:id="@+id/imgPDF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40"
+                        android:layout_gravity="center"
+                        android:src="@drawable/pdf"/>
 
                 </LinearLayout>
 

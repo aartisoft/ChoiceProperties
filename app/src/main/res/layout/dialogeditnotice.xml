@@ -3,12 +3,13 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="horizontal"
         android:id="@+id/layouttop"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:gravity="center_horizontal">
+        android:weightSum="100"
+        android:background="@color/colorPrimary">
 
         <TextView
             android:id="@+id/textheader"
@@ -16,14 +17,24 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="5sp"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:paddingTop="9dp"
             android:paddingBottom="9dp"
             android:text="Plot Details"
             android:textColor="#ffffff"
             android:textSize="18sp"
+            android:layout_weight="20"
             android:textStyle="normal|bold" />
-    </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/imgPDF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_toRightOf="@+id/textheader"
+            android:layout_weight="80"
+            android:src="@drawable/pdf"/>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/details"

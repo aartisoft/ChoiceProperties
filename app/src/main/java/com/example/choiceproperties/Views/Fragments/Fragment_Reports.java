@@ -1,19 +1,30 @@
 package com.example.choiceproperties.Views.Fragments;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,10 +42,24 @@ import com.example.choiceproperties.repository.impl.UserRepositoryImpl;
 import com.example.choiceproperties.utilities.Utility;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import static com.example.choiceproperties.Constant.Constant.CALANDER_DATE_FORMATE;
@@ -55,7 +80,8 @@ public class Fragment_Reports extends Fragment {
     LeedRepository leedRepository;
     UserRepository userRepository;
     private ProgressDialog progressDialog;
-
+    ImageView imgPDF;
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 111;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,12 +117,25 @@ public class Fragment_Reports extends Fragment {
         TotalPlots = (TextView) view.findViewById(R.id.text_view_total_plots_count);
         SoldoutPlots = (TextView) view.findViewById(R.id.text_view_sold_plots_count);
         RemainingPlots = (TextView) view.findViewById(R.id.text_view_remaining_plots_count);
+        imgPDF = (ImageView) view.findViewById(R.id.imgPDF);
 
         getAllSoldPlots();
 
         setFromDateClickListner();
         setToDateClickListner();
 
+        imgPDF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    createPdfWrapper();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (DocumentException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         return view;
     }
 
@@ -266,6 +305,148 @@ public class Fragment_Reports extends Fragment {
         });
     }
 
+    private void createPdfWrapper() throws FileNotFoundException, DocumentException {
+
+        int hasWriteStoragePermission = ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (hasWriteStoragePermission != PackageManager.PERMISSION_GRANTED) {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (!shouldShowRequestPermissionRationale(Manifest.permission.WRITE_CONTACTS)) {
+                    showMessageOKCancel("You need to allow access to Storage",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                                REQUEST_CODE_ASK_PERMISSIONS);
+                                    }
+                                }
+                            });
+                    return;
+                }
+
+
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_CODE_ASK_PERMISSIONS);
+            }
+            return;
+        } else {
+            createPdf();
+        }
+    }
+    private void createPdf() throws FileNotFoundException, DocumentException {
+
+        Document doc = new Document();
+        try {
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/PLOTS DATABASE/TOTAL REPORT/";
+
+            File dir = new File(path);
+            if (!dir.exists())
+                dir.mkdirs();
+
+            Log.d("PDFCreator", "PDF Path: " + path);
+
+            File file = new File(dir, "SoldPlots_Report" + ".pdf");
+            FileOutputStream fOut = new FileOutputStream(file);
+
+            PdfWriter.getInstance(doc, fOut);
+
+            doc.open();
+            Date c = Calendar.getInstance().getTime();
+            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+            String formattedDate = df.format(c);
+
+            Paragraph address = new Paragraph("details");
+            Paragraph Date = new Paragraph("Date: "+formattedDate);
+            /* You can also SET FONT and SIZE like this */
+//            BaseFont kruti_Dev = BaseFont.createFont("c:/WINDOWS/Font/Kruti_Dev_010.ttf"
+//                    ,BaseFont.CP1252,BaseFont.EMBEDDED);
+            Font paraFont2 = new Font(Font.FontFamily.HELVETICA);
+            paraFont2.setSize(11);
+            address.setAlignment(Paragraph.ALIGN_CENTER);
+            address.setFont(paraFont2);
+            doc.add(address);
+
+            Paragraph blankspace = new Paragraph("\n");
+            doc.add(blankspace);
+
+            Font paraFonto = new Font(Font.FontFamily.HELVETICA);
+            paraFonto.setSize(11);
+            Date.setAlignment(Paragraph.ALIGN_RIGHT);
+            Date.setFont(paraFonto);
+            doc.add(Date);
+
+            Paragraph blankspace0 = new Paragraph("\n");
+            doc.add(blankspace0);
+            doc.add(blankspace0);
+
+            Phrase phrase5 = new Phrase();
+            PdfPCell phraseCell5 = new PdfPCell();
+            phraseCell5.addElement(phrase5);
+            PdfPTable phraseTable5 = new PdfPTable(3);
+            phraseTable5.setWidthPercentage(100);
+            phraseTable5.setWidths(new int[]{30, 40, 30});
+            phraseTable5.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+            phraseTable5.addCell("CUSTOMER NAME");
+            phraseTable5.addCell("PLOT PRICE");
+            phraseTable5.addCell("RECEIVED AMOUNT");
+
+            phrase5.setFont(paraFont2);
+
+            Phrase phraseTableWrapper5 = new Phrase();
+            phraseTableWrapper5.add(phraseTable5);
+            doc.add(phraseTableWrapper5);
+
+            for (int i = 0; i < SoldOutPlotList.size(); i++) {
+
+                Phrase phrase = new Phrase();
+                PdfPCell phraseCell = new PdfPCell();
+                phraseCell.addElement(phrase);
+                PdfPTable phraseTable = new PdfPTable(3);
+                phraseTable.setWidthPercentage(100);
+                phraseTable.setWidths(new int[]{30, 40, 30});
+                phraseTable.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                phraseTable.addCell(SoldOutPlotList.get(i).getCustomerNmae());
+                phraseTable.addCell(SoldOutPlotList.get(i).getPlotPrice());
+                phraseTable.addCell(SoldOutPlotList.get(i).getPayedAmount());
+
+                phrase.setFont(paraFont2);
+
+                Phrase phraseTableWrapper = new Phrase();
+                phraseTableWrapper.add(phraseTable);
+                doc.add(phraseTableWrapper);
+            }
+
+            Toast.makeText(getContext(), "PDF Generated", Toast.LENGTH_SHORT).show();
+
+        } catch (DocumentException de) {
+            Log.e("PDFCreator", "DocumentException:" + de);
+        } catch (IOException e) {
+            Log.e("PDFCreator", "ioException:" + e);
+        } finally {
+            doc.close();
+        }
+        openPdf1();
+    }
+    void openPdf1() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/PLOTS DATABASE/TOTAL REPORT/";
+        File file = new File(path, "SoldPlots_Report.pdf");
+        intent.setDataAndType(Uri.fromFile(file), "application/pdf");
+        Intent j = Intent.createChooser(intent, "Choose an application to open with:");
+        startActivity(j);
+    }
+
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(getContext())
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
