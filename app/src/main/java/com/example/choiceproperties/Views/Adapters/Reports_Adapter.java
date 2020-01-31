@@ -378,36 +378,58 @@ public class Reports_Adapter extends RecyclerView.Adapter<Reports_Adapter.ViewHo
                             phraseTableWrapper4.add(phraseTable4);
                             doc.add(phraseTableWrapper4);
 //////////////////////////////////////////////////////////////////////////////////
-                            Phrase phrase10 = new Phrase();
-                            PdfPCell phraseCell10 = new PdfPCell();
-                            phraseCell10.addElement(phrase10);
-                            PdfPTable phraseTable10 = new PdfPTable(2);
-                            phraseTable10.setWidthPercentage(100);
-                            phraseTable10.setWidths(new int[]{50, 50});
-                            phraseTable10.setHorizontalAlignment(Element.ALIGN_CENTER);
+                            Phrase phrase12 = new Phrase();
+                            PdfPCell phraseCel = new PdfPCell();
+                            phraseCel.addElement(phrase12);
+                            PdfPTable phraseTable = new PdfPTable(1);
+                            phraseTable.setWidthPercentage(100);
+                            phraseTable.setWidths(new int[]{100});
+                            phraseTable.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-                            phraseTable10.addCell("INSTALLMENTS");
-                            phraseTable10.addCell(plots.getPlotPrice());
+                            phraseTable.addCell("INSTALLMENTS");
 
-                            phrase10.setFont(paraFont2);
 
-                            Phrase phraseTableWrapper10 = new Phrase();
-                            phraseTableWrapper10.add(phraseTable10);
-                            doc.add(phraseTableWrapper10);
+
+                            phrase12.setFont(paraFont2);
+
+                            Phrase phraseTableWrapper11 = new Phrase();
+                            phraseTableWrapper11.add(phraseTable);
+                            doc.add(phraseTableWrapper11);
+
+                            for (int i = 0; i < plots.getInstallments().size(); i++) {
+
+                                Phrase phrase = new Phrase();
+                                PdfPCell phraseCell = new PdfPCell();
+                                phraseCell.addElement(phrase);
+                                PdfPTable phraseTablen = new PdfPTable(1);
+                                phraseTablen.setWidthPercentage(100);
+                                phraseTablen.setWidths(new int[]{100});
+                                phraseTablen.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                                phraseTablen.addCell(plots.getInstallments().get(i));
+
+
+                                phrase.setFont(paraFont2);
+
+                                Phrase phraseTableWrapper = new Phrase();
+                                phraseTableWrapper.add(phraseTablen);
+                                doc.add(phraseTableWrapper);
+                            }
+
 //////////////////////////////////////////////////////////////////////////////////
 
                             Phrase phrase = new Phrase();
                             PdfPCell phraseCell = new PdfPCell();
-                            phraseCell4.addElement(phrase);
-                            PdfPTable phraseTable = new PdfPTable(2);
-                            phraseTable.setWidthPercentage(100);
-                            phraseTable.setWidths(new int[]{50, 50});
-                            phraseTable.setHorizontalAlignment(Element.ALIGN_CENTER);
+                            phraseCell.addElement(phrase);
+                            PdfPTable phraseTables = new PdfPTable(2);
+                            phraseTables.setWidthPercentage(100);
+                            phraseTables.setWidths(new int[]{50, 50});
+                            phraseTables.setHorizontalAlignment(Element.ALIGN_CENTER);
 
                             phrase4.setFont(paraFont2);
 
                             Phrase phraseTableWrapper = new Phrase();
-                            phraseTableWrapper.add(phraseTable);
+                            phraseTableWrapper.add(phraseTables);
                             doc.add(phraseTableWrapper);
 //////////////////////////////////////////////////////////////////////////////////
                             Toast.makeText(context, "PDF Generated", Toast.LENGTH_SHORT).show();
