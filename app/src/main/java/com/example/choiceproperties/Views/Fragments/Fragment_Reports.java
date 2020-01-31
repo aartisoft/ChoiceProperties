@@ -224,9 +224,9 @@ public class Fragment_Reports extends Fragment {
         int soldoutCount = 0, availableCount = 0;
         int totalPayout = 0;
         if (leedsModelArrayList != null) {
-           soldoutCount = SoldOutPlotList.size();
-           availableCount = AvailablePlotList.size();
-           totalPayout = soldoutCount + availableCount;
+            soldoutCount = SoldOutPlotList.size();
+            availableCount = AvailablePlotList.size();
+            totalPayout = soldoutCount + availableCount;
 
             TotalPlots.setText(String.valueOf(totalPayout));
             SoldoutPlots.setText(String.valueOf(soldoutCount));
@@ -334,6 +334,7 @@ public class Fragment_Reports extends Fragment {
             createPdf();
         }
     }
+
     private void createPdf() throws FileNotFoundException, DocumentException {
 
         Document doc = new Document();
@@ -356,8 +357,8 @@ public class Fragment_Reports extends Fragment {
             SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
             String formattedDate = df.format(c);
 
-            Paragraph address = new Paragraph("details");
-            Paragraph Date = new Paragraph("Date: "+formattedDate);
+            Paragraph address = new Paragraph("SOLD PLOTS");
+            Paragraph Date = new Paragraph("Date: " + formattedDate);
             /* You can also SET FONT and SIZE like this */
 //            BaseFont kruti_Dev = BaseFont.createFont("c:/WINDOWS/Font/Kruti_Dev_010.ttf"
 //                    ,BaseFont.CP1252,BaseFont.EMBEDDED);
@@ -383,12 +384,13 @@ public class Fragment_Reports extends Fragment {
             Phrase phrase5 = new Phrase();
             PdfPCell phraseCell5 = new PdfPCell();
             phraseCell5.addElement(phrase5);
-            PdfPTable phraseTable5 = new PdfPTable(3);
+            PdfPTable phraseTable5 = new PdfPTable(4);
             phraseTable5.setWidthPercentage(100);
-            phraseTable5.setWidths(new int[]{30, 40, 30});
+            phraseTable5.setWidths(new int[]{30, 20, 20, 30});
             phraseTable5.setHorizontalAlignment(Element.ALIGN_CENTER);
 
             phraseTable5.addCell("CUSTOMER NAME");
+            phraseTable5.addCell("PLOT NUMBER");
             phraseTable5.addCell("PLOT PRICE");
             phraseTable5.addCell("RECEIVED AMOUNT");
 
@@ -403,12 +405,13 @@ public class Fragment_Reports extends Fragment {
                 Phrase phrase = new Phrase();
                 PdfPCell phraseCell = new PdfPCell();
                 phraseCell.addElement(phrase);
-                PdfPTable phraseTable = new PdfPTable(3);
+                PdfPTable phraseTable = new PdfPTable(4);
                 phraseTable.setWidthPercentage(100);
-                phraseTable.setWidths(new int[]{30, 40, 30});
+                phraseTable.setWidths(new int[]{30, 20, 20, 30});
                 phraseTable.setHorizontalAlignment(Element.ALIGN_CENTER);
 
                 phraseTable.addCell(SoldOutPlotList.get(i).getCustomerNmae());
+                phraseTable.addCell(SoldOutPlotList.get(i).getPlotnumber());
                 phraseTable.addCell(SoldOutPlotList.get(i).getPlotPrice());
                 phraseTable.addCell(SoldOutPlotList.get(i).getPayedAmount());
 
@@ -430,6 +433,7 @@ public class Fragment_Reports extends Fragment {
         }
         openPdf1();
     }
+
     void openPdf1() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/PLOTS DATABASE/TOTAL REPORT/";

@@ -302,7 +302,7 @@ public class Reports_Adapter extends RecyclerView.Adapter<Reports_Adapter.ViewHo
                             phraseTable9.setHorizontalAlignment(Element.ALIGN_CENTER);
 
                             phraseTable9.addCell("SOLD DATE");
-                            phraseTable9.addCell(String.valueOf(plots.getCreatedDateTimeLong()));
+                            phraseTable9.addCell( Utility.convertMilliSecondsToFormatedDate(searchArrayList.get(position).getCreatedDateTimeLong(), GLOBAL_DATE_FORMATE));
 
                             phrase9.setFont(paraFont2);
 
@@ -387,8 +387,6 @@ public class Reports_Adapter extends RecyclerView.Adapter<Reports_Adapter.ViewHo
                             phraseTable.setHorizontalAlignment(Element.ALIGN_CENTER);
 
                             phraseTable.addCell("INSTALLMENTS");
-
-
 
                             phrase12.setFont(paraFont2);
 
