@@ -172,15 +172,6 @@ public class Reports_Adapter extends RecyclerView.Adapter<Reports_Adapter.ViewHo
 
                     }
 
-                    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
-                        new AlertDialog.Builder(context)
-                                .setMessage(message)
-                                .setPositiveButton("OK", okListener)
-                                .setNegativeButton("Cancel", null)
-                                .create()
-                                .show();
-                    }
-
                     private void createPdf() throws FileNotFoundException {
 
                         Document doc = new Document();
@@ -233,7 +224,7 @@ public class Reports_Adapter extends RecyclerView.Adapter<Reports_Adapter.ViewHo
                             phraseTable5.setWidths(new int[]{50, 50});
                             phraseTable5.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-                            phraseTable5.addCell("CSTOMER NAME");
+                            phraseTable5.addCell("CUSTOMER NAME");
                             phraseTable5.addCell(plots.getCustomerNmae());
 
                             phrase5.setFont(paraFont2);

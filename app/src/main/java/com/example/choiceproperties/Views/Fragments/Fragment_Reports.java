@@ -360,8 +360,7 @@ public class Fragment_Reports extends Fragment {
             Paragraph address = new Paragraph("SOLD PLOTS");
             Paragraph Date = new Paragraph("Date: " + formattedDate);
             /* You can also SET FONT and SIZE like this */
-//            BaseFont kruti_Dev = BaseFont.createFont("c:/WINDOWS/Font/Kruti_Dev_010.ttf"
-//                    ,BaseFont.CP1252,BaseFont.EMBEDDED);
+
             Font paraFont2 = new Font(Font.FontFamily.HELVETICA);
             paraFont2.setSize(11);
             address.setAlignment(Paragraph.ALIGN_CENTER);
