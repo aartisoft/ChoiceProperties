@@ -26,6 +26,7 @@
         <activity android:name=".Views.Activities.LoginScreen" />
         <activity android:name=".Views.Activities.Registeractivity" />
         <activity android:name=".Views.Activities.Main2Activity" />
+        <activity android:name=".Views.Activities.ResetPasswordActivity" />
         <activity android:name=".Views.Activities.Update_Sold_Out_Plots_Activity"
             android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".Views.Activities.MainActivity"></activity>

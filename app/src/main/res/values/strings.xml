@@ -36,4 +36,11 @@
     <string name="hint_password">Password</string>
     <string name="hint_discu">Disscussion</string>
 
+    <string name="lbl_forgot_password">Forgot password?</string>
+    <string name="forgot_password_msg">We just need your registered Mobile number and Username to reset your password.</string>
+    <string name="btn_reset_password">Reset Password</string>
+    <string name="btn_back"><![CDATA[<< Back]]></string>
+    <string name="hint_name">User Name</string>
+    <string name="btn_forgot_password">Forgot your password?</string>
+
 </resources>

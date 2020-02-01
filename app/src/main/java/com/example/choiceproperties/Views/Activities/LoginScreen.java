@@ -34,7 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LoginScreen extends AppCompatActivity {
     TextView txtregister;
-    Button login;
+    Button login,btnReset;
     EditText etMobileNumber, etpassword;
     private AppSharedPreference appSharedPreference;
     private UserRepository userRepository;
@@ -52,6 +52,7 @@ public class LoginScreen extends AppCompatActivity {
         checkLoginState();
 //        Register = (Button) findViewById(R.id.buttonRegister);
         login = (Button) findViewById(R.id.buttonlogin);
+        btnReset = (Button) findViewById(R.id.btn_reset_password);
         etMobileNumber = (EditText) findViewById(R.id.edittext_mobile_number);
         etpassword = (EditText) findViewById(R.id.edittextpassword);
 //        Register.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +81,12 @@ public class LoginScreen extends AppCompatActivity {
                 Animation zoomOutAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoomin);
                 etpassword.startAnimation(zoomOutAnimation);
                 return false;
+            }
+        });
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginScreen.this, ResetPasswordActivity.class));
             }
         });
     }
@@ -115,12 +122,16 @@ public class LoginScreen extends AppCompatActivity {
 
                         User user = postSnapshot.getValue(User.class);
 
-                        progressDialog.dismissDialog();
-                        String userid = user.getUserId();
-                        appSharedPreference.createUserLoginSession();
-                        appSharedPreference.addUserDetails(user);
-                        Toast.makeText(LoginScreen.this, "Login Successfull", Toast.LENGTH_SHORT).show();
-                        LoginToApp();
+                        if (user.getPassword().equalsIgnoreCase(etpassword.getText().toString())) {
+                            progressDialog.dismissDialog();
+                            String userid = user.getUserId();
+                            appSharedPreference.createUserLoginSession();
+                            appSharedPreference.addUserDetails(user);
+                            Toast.makeText(LoginScreen.this, "Login Successfull", Toast.LENGTH_SHORT).show();
+                            LoginToApp();
+                        }else {
+                            Toast.makeText(LoginScreen.this, "Sorry Wrong Password", Toast.LENGTH_SHORT).show();
+                        }
 
                         //                        signInUserData(userid);
 
